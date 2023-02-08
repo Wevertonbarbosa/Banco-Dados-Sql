@@ -110,4 +110,36 @@ FROM funcionarios
 GROUP BY sexo;
 
 
+--===== VIEW 
+CREATE VIEW view_homem_mulher_mediaSlarial AS(
+	SELECT
+	d.departamento,
+	f.sexo
+	FROM funcionarios f
+	INNER JOIN departamentos d
+	ON f.departamento_id = d.id
+	WHERE(f.sexo = 'M' AND MONTH(f.data_nascimento) = '05') OR (f.sexo = 'F' AND MONTH(f.data_nascimento) = '07')
+	GROUP BY d.departamento, f.sexo
+);
 
+SELECT * FROM view_homem_mulher_mediaSlarial;
+
+--==== TRAZER O MENOR SALÁRIO DE CADA DEPARTAMENTO E O NOME DO FUNCIONARIO QUE RECEBE SEU VALOR. TRAZER O NOME DO DEPARTAMENTO
+SELECT
+d.id, 
+d.departamento,
+MIN(f.Salario)AS Menor_salario
+FROM departamentos d
+INNER JOIN funcionarios f
+ON f.departamento_id = d.id
+GROUP BY d.id, d.departamento;
+
+
+--============ DESEJO SABER O ANO DE NASCIMENTO DE TODOS OS FUNCIONÁRIOS E SABER QUEM É O MAIS VELHO
+WITH base_table(
+SELECT
+departamento_id
+YEAR(data_nascimento),
+FIRST_VALUE(YEAR(data_nascimento)) OVER(PARTITION BY departamento_id ORDER BY YEAR(data_nascimento))
+FROM funcionarios
+)
