@@ -1,23 +1,21 @@
-DATA: 11/02
-
 CREATE TABLE cursos(
-	id_cursos INT NOT NULL IDENTITY(1,1),
+	id_cursos INT NOT NULL,
 	nome VARCHAR(255) NOT NULL,
 	mensalidade INT NOT NULL,
 	PRIMARY KEY (id_cursos),
 );
 
 CREATE TABLE enderecos(
-	id_endereco INT NOT NULL IDENTITY(1,1),
+	id_endereco INT NOT NULL,
 	cidade VARCHAR(255) NOT NULL,
 	rua VARCHAR(255) NOT NULL,
 	numero INT NOT NULL,
-	complemento VARCHAR(255) NOT NULL	
+    complemento VARCHAR(255)
 	PRIMARY KEY (id_endereco)
 );
 
 CREATE TABLE alunos(
-	id_alunos INT NOT NULL IDENTITY(1,1),
+	id_alunos INT NOT NULL,
 	id_endereco INT NOT NULL,
 	nome VARCHAR(255) NOT NULL,
 	cpf CHAR (11) NOT NULL,
@@ -27,8 +25,10 @@ CREATE TABLE alunos(
 );
 
 CREATE TABLE matricula(
+    id_matricula INT NOT NULL,
 	id_aluno INT NOT NULL,
 	id_curso INT NOT NULL,
+  PRIMARY KEY (id_matricula)
 );
 
 CREATE TABLE modulos(
