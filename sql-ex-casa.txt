@@ -1,0 +1,349 @@
+DATA: 11/02
+
+CREATE TABLE cursos(
+	id_cursos INT NOT NULL IDENTITY(1,1),
+	nome VARCHAR(255) NOT NULL,
+	mensalidade INT NOT NULL,
+	PRIMARY KEY (id_cursos),
+);
+
+CREATE TABLE enderecos(
+	id_endereco INT NOT NULL IDENTITY(1,1),
+	cidade VARCHAR(255) NOT NULL,
+	rua VARCHAR(255) NOT NULL,
+	numero INT NOT NULL,
+	complemento VARCHAR(255) NOT NULL	
+	PRIMARY KEY (id_endereco)
+);
+
+CREATE TABLE alunos(
+	id_alunos INT NOT NULL IDENTITY(1,1),
+	id_endereco INT NOT NULL,
+	nome VARCHAR(255) NOT NULL,
+	cpf CHAR (11) NOT NULL,
+	email VARCHAR(255) NOT NULL,
+	data_nascimento CHAR(11) NOT NULL,
+    PRIMARY KEY (id_alunos)
+);
+
+CREATE TABLE matricula(
+	id_aluno INT NOT NULL,
+	id_curso INT NOT NULL,
+);
+
+CREATE TABLE modulos(
+	id_modulo INT NOT NULL IDENTITY(1,1),
+	tipo_modulos VARCHAR (255),
+    
+	PRIMARY KEY (id_modulo)
+);
+
+CREATE TABLE modulo_curso(
+	id_curso INT NOT NULL,
+	id_modulos INT NOT NULL,
+);
+
+
+
+
+ALTER TABLE alunos 
+  ADD CONSTRAINT FK_Endereco FOREIGN KEY (id_endereco)
+  REFERENCES enderecos(id_endereco);
+
+ALTER TABLE modulo_curso 
+  ADD CONSTRAINT FK_Cursos FOREIGN KEY (id_curso)
+  REFERENCES cursos(id_cursos);
+
+ALTER TABLE modulo_curso 
+  ADD CONSTRAINT FK_Modulo FOREIGN KEY (id_modulos)
+  REFERENCES modulos(id_modulo);
+
+ALTER TABLE matricula 
+  ADD CONSTRAINT FK_CursosMT FOREIGN KEY (id_curso)
+  REFERENCES cursos(id_cursos);
+
+ALTER TABLE matricula 
+  ADD CONSTRAINT FK_Aluno FOREIGN KEY (id_aluno)
+  REFERENCES alunos(id_alunos);
+  
+
+
+
+INSERT INTO cursos(id_cursos,nome, mensalidade)
+VALUES (1,'Programação', 100);
+
+
+INSERT INTO cursos(id_cursos,nome, mensalidade)
+VALUES (2,'Administração', 220);
+
+
+INSERT INTO cursos(id_cursos,nome, mensalidade)
+VALUES (3,'informática', 80);
+
+
+INSERT INTO cursos(id_cursos,nome, mensalidade)
+VALUES (4,'Matemática', 95);
+
+
+INSERT INTO cursos(id_cursos,nome, mensalidade)
+VALUES (5,'Artes', 150);
+
+
+
+INSERT INTO enderecos(id_endereco,cidade, rua, numero, complemento) 
+VALUES(1,'Aparecida de Goiânia', 'Rua Bauru', 12, 'Apartamento');
+
+INSERT INTO enderecos(id_endereco,cidade, rua, numero)
+VALUES(2,'Belém', 'Quadra N', 55);
+
+INSERT INTO enderecos(id_endereco,cidade, rua, numero)
+VALUES(3,'Rondonópolis', 'Rua Gv-30', 26);
+
+INSERT INTO enderecos(id_endereco,cidade, rua, numero)
+VALUES(4,'Altamira', 'Avenida João Rodrigues', 37);
+
+INSERT INTO enderecos(id_endereco,cidade, rua, numero)
+VALUES(5,'Londrina', 'Rua Maria Osti', 56);
+
+INSERT INTO enderecos(id_endereco,cidade, rua, numero, complemento)
+VALUES(6,'Teresina', 'Avenida Zequinha Freire', 98,'Casa');
+
+INSERT INTO enderecos(id_endereco,cidade, rua, numero)
+VALUES(7,'Colombo', 'Rua Frederico Fromhols', 3);
+
+INSERT INTO enderecos(id_endereco,cidade, rua, numero, complemento) 
+VALUES(8,'Brasília', 'Quadra QNR 4', 9, 'Casa');
+
+INSERT INTO enderecos(id_endereco,cidade, rua, numero)
+VALUES(9,'Vitória', 'Rua Gonçalves Dias', 81);
+
+INSERT INTO enderecos(id_endereco,cidade, rua, numero)
+VALUES(10,'Natal', 'Rua Tamboril', 97);
+
+INSERT INTO enderecos(id_endereco,cidade, rua, numero, complemento)
+VALUES(11,'Campo Grande', 'Rua Rui Barbosa', 41, 'Apartamento');
+
+INSERT INTO enderecos(id_endereco,cidade, rua, numero)
+VALUES(12,'Montes Claros', 'Rua H', 91);
+
+INSERT INTO enderecos(id_endereco,cidade, rua, numero, complemento)
+VALUES(13,'Campo Largo', 'Rua Quatro', 85, 'Casa');
+
+INSERT INTO enderecos(id_endereco,cidade, rua, numero, complemento)
+VALUES(14,'Ribeirão das Neves', 'Rua Bálsamo', 49, 'Casa');
+
+INSERT INTO enderecos(id_endereco,cidade, rua, numero, complemento)
+VALUES(15,'Corumbá', 'Alameda Idalécio Proença', 34, 'Apartamento');
+
+INSERT INTO enderecos(id_endereco,cidade, rua, numero)
+VALUES(16,'Ji-Paraná', 'Rua Boa Vista', 61);
+
+INSERT INTO enderecos(id_endereco,cidade, rua, numero)
+VALUES(17,'Olinda', 'Rua do Reflexo', 78);
+
+INSERT INTO enderecos(id_endereco,cidade, rua, numero)
+VALUES(18,'Brasília', 'Praça dos Três Poderes Anexo II', 31);
+
+INSERT INTO enderecos(id_endereco,cidade, rua, numero)
+VALUES(19,'Fortaleza', 'Rua 610', 40);
+
+INSERT INTO enderecos(id_endereco,cidade, rua, numero)
+VALUES(20,'João Pessoa', 'Vila Marcos Barbosa', 33);
+
+
+
+INSERT INTO alunos(id_alunos,id_endereco, nome, cpf, email, data_nascimento) 
+VALUES(1,1, 'Alexandre Raul Cardoso', '37967024818', 'alexandre_cardoso@policiamilitar.sp.gov.br', '19/01/1994');
+
+INSERT INTO alunos(id_alunos,id_endereco, nome, cpf, email, data_nascimento)
+VALUES(2,2, 'Heitor Sérgio Bryan Novaes', '55137936103', 'heitorsergionovaes@ipek.net.br', '25/01/1951');
+
+INSERT INTO alunos(id_alunos,id_endereco, nome, cpf, email, data_nascimento) 
+VALUES(3,3, 'Leonardo Nathan Davi Monteiro', '40436955199', 'leonardo.nathan.monteiro@acramisper.com', '22/01/1961');
+
+INSERT INTO alunos(id_alunos,id_endereco, nome, cpf, email, data_nascimento) 
+VALUES(4,4, 'Felipe Noah Calebe Sales', '84553649632', 'felipe-sales80@lidertel.com.br', '03/01/1957');
+
+INSERT INTO alunos(id_alunos,id_endereco, nome, cpf, email, data_nascimento)
+VALUES(5,5, 'Gael Danilo Mário da Rosa', '56459619352', 'gaeldanilodarosa@integrasjc.com.br', '19/01/1961');
+
+INSERT INTO alunos(id_alunos,id_endereco, nome, cpf, email, data_nascimento) 
+VALUES(6,6, 'Luís Anderson Anderson Drumond', '46142468261', 'luis_drumond@sunrise.com.br', '02/01/1977');
+
+INSERT INTO alunos(id_alunos,id_endereco, nome, cpf, email, data_nascimento)
+VALUES(7,7, 'Francisca Cláudia Lorena da Silva', '52756612901', 'francisca_claudia_dasilva@duoarq.com', '14/01/1998');
+
+INSERT INTO alunos(id_alunos,id_endereco, nome, cpf, email, data_nascimento)
+VALUES(8,8, 'Leonardo Danilo Campos', '40699367930', 'leonardo_campos@bsd.com.br', '02/01/1954');
+
+INSERT INTO alunos(id_alunos,id_endereco, nome, cpf, email, data_nascimento) 
+VALUES(9,9, 'Stella Cláudia Laura Drumond', '47333058344', 'stella_drumond@lojapetline.com.br', '03/01/1960');
+
+INSERT INTO alunos(id_alunos,id_endereco, nome, cpf, email, data_nascimento)
+VALUES(10,10, 'Liz Analu Fabiana Monteiro', '71467087807', 'liz_monteiro@hardquality.com.br', '16/01/1957');
+
+INSERT INTO alunos(id_alunos,id_endereco, nome, cpf, email, data_nascimento)
+VALUES(11,11, 'Calebe José Caleb Rodrigues', '96904984791', 'calebe_jose_rodrigues@ficopola.net', '22/01/1982');
+
+INSERT INTO alunos(id_alunos,id_endereco, nome, cpf, email, data_nascimento)
+VALUES(12,12, 'Kaique Gabriel da Silva', '33645282092', 'kaique.gabriel.dasilva@clinicasilhouette.com.br', '14/01/1947');
+
+INSERT INTO alunos(id_alunos,id_endereco, nome, cpf, email, data_nascimento)
+VALUES(13,13, 'Camila Marli Novaes', '26375017319', 'camila.marli.novaes@supercleanlav.com.br', '24/01/1995');
+
+INSERT INTO alunos(id_alunos,id_endereco, nome, cpf, email, data_nascimento)
+VALUES(14,14, 'Rosa Elza Sueli Rodrigues', '71141196077', 'rosa_elza_rodrigues@lukin4.com.br', '12/01/1943');
+
+INSERT INTO alunos(id_alunos,id_endereco, nome, cpf, email, data_nascimento)
+VALUES(15,15, 'Joana Antonella Manuela Cavalcanti', '35929091340', 'joanaantonellacavalcanti@portalpublicidade.com.br', '04/01/1993');
+
+INSERT INTO alunos(id_alunos,id_endereco, nome, cpf, email, data_nascimento)
+VALUES(16,16, 'Jennifer Josefa Alana Farias', '76857381984', 'jennifer_farias@inductothermgroup.com.br', '01/01/1959');
+
+INSERT INTO alunos(id_alunos,id_endereco, nome, cpf, email, data_nascimento)
+VALUES(17,17, 'Andrea Daniela Nina Cardoso', '96492721608', 'andrea.daniela.cardoso@raya3.com.br', '12/01/1962');
+
+INSERT INTO alunos(id_alunos,id_endereco, nome, cpf, email, data_nascimento)
+VALUES(18,18, 'Jéssica Camila Oliveira', '29299168180', 'jessica_oliveira@consultorialk.com.br', '15/01/1982');
+
+INSERT INTO alunos(id_alunos,id_endereco, nome, cpf, email, data_nascimento)
+VALUES(19,19, 'Gabriel Kaique da Mota', '17011333770', 'gabrielkaiquedamota@edu.uniso.br', '03/01/1980');
+
+INSERT INTO alunos(id_alunos,id_endereco, nome, cpf, email, data_nascimento)
+VALUES(20,20, 'Eduarda Ester Pereira', '05738904044', 'eduarda_ester_pereira@azulcargo.com.br', '20/01/1974');
+
+
+INSERT INTO matricula(id_matricula ,id_aluno, id_curso)
+VALUES (1,2,1);
+
+INSERT INTO matricula(id_matricula,id_aluno, id_curso)
+VALUES (2,2,4);
+
+
+INSERT INTO matricula(id_matricula,id_aluno, id_curso)
+VALUES (3,5,2);
+
+INSERT INTO matricula(id_matricula,id_aluno, id_curso)
+VALUES (4,10,5);
+
+INSERT INTO matricula(id_matricula,id_aluno, id_curso)
+VALUES (5,11,2);
+
+INSERT INTO matricula(id_matricula, id_aluno, id_curso)
+VALUES (6,11,3);
+
+
+INSERT INTO matricula(id_matricula, id_aluno, id_curso)
+VALUES (7,12,1);
+
+
+INSERT INTO matricula(id_matricula, id_aluno, id_curso)
+VALUES (8,10,5);
+
+
+
+--====Listagem alfabética
+SELECT alunos.nome, alunos.email, alunos.data_nascimento
+FROM alunos
+ORDER BY alunos.nome ASC;
+
+--====== Listagem estudante tem 4, 5 ou 6 no CPF
+SELECT alunos.nome, alunos.cpf, alunos.id_alunos
+FROM alunos
+WHERE alunos.cpf LIKE '4%' 
+OR alunos.cpf LIKE '5%' 
+OR alunos.cpf LIKE '6%';
+
+
+--====Aluno termina com o email hotmal.com
+--==== Alunos que nasceram antes dos 2000 fiz dessa forma porque não estou fazendo no SQL serve mas estou fazendo em um compilador online que aceita o DATE
+
+SELECT alunos.id_alunos, alunos.nome, alunos.email, alunos.data_nascimento
+FROM alunos
+WHERE alunos.email LIKE 'hotmail.com' AND
+alunos.data_nascimento LIKE '%19%'
+
+
+--==== Maior mensalidade 
+SELECT MAX(cursos.mensalidade) as curso_caro
+FROM cursos;
+
+--======= media mensalidades
+SELECT AVG(cursos.mensalidade) as Media_cursos
+FROM cursos;
+
+
+--==== Extraindo os cursos com mensalidades acima da média
+SELECT nome, COUNT(id_cursos) as total_cursos, cursos.mensalidade
+FROM cursos
+GROUP BY cursos.mensalidade, nome
+HAVING cursos.mensalidade > (
+      SELECT AVG(cursos.mensalidade) 
+      FROM cursos
+);
+
+
+
+--==== Menor mensalidade da Media
+SELECT COUNT(c.mensalidade) AS abaixo_media, c.nome
+FROM cursos c
+GROUP BY c.mensalidade, c.nome
+HAVING c.mensalidade < (
+  SELECT AVG(c.mensalidade)
+  FROM cursos c
+);
+
+
+--====Alunos que possuem complemento
+SELECT nome, id_alunos, COUNT(e.complemento)AS qta_complementos
+FROM enderecos e
+INNER JOIN alunos a
+ON e.id_endereco = a.id_alunos
+WHERE complemento IS NOT NULL
+GROUP BY nome, id_alunos
+
+
+-===== Quantos alunos comprar=m o curso mais caro
+SELECT COUNT(m.id_aluno) AS qta_alunos
+FROM matricula m
+INNER JOIN cursos ON m.id_curso = cursos.id_cursos
+INNER JOIN alunos ON m.id_aluno = alunos.id_alunos
+WHERE cursos.mensalidade = (
+  SELECT MAX(cursos.mensalidade)
+  FROM cursos
+);
+
+--===== ALunos que compraram mais de 1 curso e listado de forma alfabética
+SELECT a.nome,SUM(c.mensalidade) total_mensalidade, COUNT(a.id_alunos) qta_cursos_Comprado
+FROM matricula m
+INNER JOIN cursos c ON m.id_curso = c.id_cursos
+INNER JOIN alunos a ON m.id_aluno = a.id_alunos
+GROUP BY a.nome
+ORDER BY a.nome ASC;
+
+--=== QUANTOS ALUNOS CADA CURSO TEM.
+SELECT c.nome,c.id_cursos,COUNT(a.id_alunos) qta_alunos
+FROM matricula m
+INNER JOIN cursos c ON m.id_curso = c.id_cursos
+INNER JOIN alunos a ON m.id_aluno = a.id_alunos
+GROUP BY c.nome,c.id_cursos
+
+
+--===== TOP 3 de cursos Vendidos
+SELECT c.nome, COUNT(c.id_curso) top_3
+FROM matricula m
+INNER JOIN cursos c ON m.id_curso = c.id_cursos
+GROUP BY c.nome
+ORDER BY top_3 DESC;
+
+
+
+
+
+
+
+
+
+
+
+
