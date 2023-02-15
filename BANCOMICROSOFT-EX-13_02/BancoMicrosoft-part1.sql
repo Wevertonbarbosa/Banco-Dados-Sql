@@ -41,6 +41,21 @@ BEGIN
 END
 GO
 
-SELECT dbo.funcao_teste(45)
+SELECT dbo.funcao_teste(45);
 
 
+
+--=== QUAL A FRAÇÃO DO VALOR VENDIDO POR CADA VENDEDOR EM RELAÇÃO AO VALOR TOTAL DA VENDA
+WITH vendas_por_vendedor AS(
+SELECT 
+emp.FirstName AS vendedor,
+SUM(ode.Quantity * UnitPrice*(1 - ode.Discount)) as Valor_individual
+FROM Employees emp
+JOIN Orders ord ON ord.EmployeeID = emp.EmployeeID
+JOIN [Order Details] as ode ON ode.OrderID = ord.OrderID
+GROUP BY emp.FirstName)
+SELECT
+vendedor,
+ROUND(valor_individual,2),
+ROUND((valor_individual/(SELECT SUM(valor_individual) FROM vendas_por_vendedor)) * 100, 2) as proporcao
+FROM vendas_por_vendedor
